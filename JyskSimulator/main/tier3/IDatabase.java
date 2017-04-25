@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IDatabase extends Remote {
-	static final String HOST = "localhost";
+	static final String HOST = "ec2-54-228-182-57.eu-west-1.compute.amazonaws.com";
 	static final String PORT = "5432";  
 	static final String URL = "jdbc:postgresql://" + HOST + ":" + PORT + "/";
 

@@ -1,5 +1,8 @@
 package tier3;
 
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,8 +15,8 @@ import org.postgresql.util.PSQLException;
 public class Database implements IDatabase {
 	private String driver = "org.postgresql.Driver";
 	private String url = URL;
-	private String user = "postgres";
-	private String pw = "postgres";
+	private String user = "touqxjvwqyknnn";
+	private String pw = "365e3f6aa75920301e66df229e9eba39a87016f78dd331c0975cd2c76c5e8a21";
 	private Connection connection = null;
 
 	public Database(String driver, String url, String user, String pw) throws ClassNotFoundException {
@@ -32,7 +35,7 @@ public class Database implements IDatabase {
 	}
 
 	public Database(String databaseName) throws ClassNotFoundException {    
-		this.url = url + databaseName;
+		this.url = url + databaseName + "?sslmode=require";
 		System.out.println (this.url);
 		Class.forName(driver);
 		System.out.println (driver + " loaded");
@@ -95,5 +98,22 @@ public class Database implements IDatabase {
 
 	private void closeDatabase() throws SQLException {
 		connection.close();
+	}
+
+	public static void main(String[] args) {
+		try {
+			Database db = new Database("d8cs1ce2fsi9io");
+			try {
+		         IDatabase shared = (IDatabase) UnicastRemoteObject.exportObject(db, 0);
+		         LocateRegistry.createRegistry(1099);
+		         Naming.bind("Warehouse", shared);
+		         System.out.println("Remote object is bound");
+		      } catch (Exception e) {
+		         System.out.println("Failed to bind remote object!\n" + e.getLocalizedMessage());
+		         System.exit(0);
+		      }
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
