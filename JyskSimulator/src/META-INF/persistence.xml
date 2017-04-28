@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="JyskSimulator" transaction-type="RESOURCE_LOCAL">
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<class>model.Good</class>
+	<properties>
+         <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-54-228-182-57.eu-west-1.compute.amazonaws.com:5432/d8cs1ce2fsi9io?sslmode=require"/>
+         <property name="javax.persistence.jdbc.user" value="touqxjvwqyknnn"/>
+         <property name="javax.persistence.jdbc.password" value="365e3f6aa75920301e66df229e9eba39a87016f78dd331c0975cd2c76c5e8a21"/>
+         <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+         <property name="eclipselink.logging.level" value="FINE"/>
+         <property name="eclipselink.ddl-generation" value="create-tables"/>
+      </properties>
+	</persistence-unit>
+</persistence>
