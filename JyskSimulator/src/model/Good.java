@@ -21,12 +21,10 @@ public class Good implements Serializable {
 
 	private String name;
 
-	public Good(Integer palletid, String manufacturer, String name) {
-		super();
-		this.palletid = palletid;
-		this.manufacturer = manufacturer;
-		this.name = name;
-	}
+	//bi-directional one-to-one association to Pallet
+	@OneToOne
+	@JoinColumn(name="palletid")
+	private Pallet pallet;
 
 	public Good() {
 	}
@@ -53,6 +51,14 @@ public class Good implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Pallet getPallet() {
+		return this.pallet;
+	}
+
+	public void setPallet(Pallet pallet) {
+		this.pallet = pallet;
 	}
 
 }

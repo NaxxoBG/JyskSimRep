@@ -3,6 +3,8 @@
 	<persistence-unit name="JyskSimulator" transaction-type="RESOURCE_LOCAL">
 		<mapping-file>META-INF/orm.xml</mapping-file>
 		<class>model.Good</class>
+		<class>model.Pallet</class>
+		<class>model.Shelf</class>
 	<properties>
          <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://ec2-54-228-182-57.eu-west-1.compute.amazonaws.com:5432/d8cs1ce2fsi9io?sslmode=require"/>
          <property name="javax.persistence.jdbc.user" value="touqxjvwqyknnn"/>

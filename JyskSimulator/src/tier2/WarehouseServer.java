@@ -36,26 +36,28 @@ public class WarehouseServer {
 		}
 	}
 
-	public static void main(String[] args) {
-		System.out.println(WarehouseServer.insertGood(new Good(443, "Chicken wings", "Danpo")));
-		System.out.println(WarehouseServer.insertGood(new Good(143, "Chocobar", "Mars")));
-
+	public static boolean insertGoodEntity(int palletId, String manufacturer, String name) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("JyskSimulator");
 		EntityManager em = emfactory.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		Good good = new Good();
-		good.setPalletid(1047);
-		good.setManufacturer("Yogurth");
-		good.setName("Yoggi");
+		good.setPalletid(palletId);
+		good.setManufacturer(manufacturer);
+		good.setName(name);
 		em.persist(good);
 		try {
 			tx.commit();
+			return true;
 		} catch (Exception e) {
-			tx.rollback();
+			return false;
 		} finally {
 			em.close();
 			emfactory.close();
 		}
+	}
+
+	public static void main(String[] args) {
+
 	}
 }
