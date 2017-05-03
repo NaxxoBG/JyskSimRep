@@ -1,53 +1,53 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import static javax.persistence.GenerationType.AUTO;
 
-
-/**
- * The persistent class for the shelf database table.
- * 
- */
-@Entity
-@NamedQuery(name="Shelf.findAll", query="SELECT s FROM Shelf s")
-@Table(schema = "jysksim")
-public class Shelf implements Serializable {
+public class Shelf implements Serializable 
+{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = AUTO)
-	private Integer id;
-
-	private Integer number;
-
+	private int id;
+	private int number;
 	private String tower;
 
 	public Shelf() {
+		super();
 	}
 
-	public Integer getId() {
-		return this.id;
+	public Shelf(int id, int number, String tower) {
+		this.id = id;
+		this.number = number;
+		this.tower = tower;
 	}
 
-	public void setId(Integer id) {
+	@Override
+	public String toString() {
+		return "Shelf [id=" + id + ", number=" + number + ", tower=" + tower + "]";
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Integer getNumber() {
-		return this.number;
+	public int getNumber() {
+		return number;
 	}
 
-	public void setNumber(Integer number) {
+	public void setNumber(int number) {
 		this.number = number;
 	}
 
 	public String getTower() {
-		return this.tower;
+		return tower;
 	}
 
 	public void setTower(String tower) {
 		this.tower = tower;
 	}
-
 }

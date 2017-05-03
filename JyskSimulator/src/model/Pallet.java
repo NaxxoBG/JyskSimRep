@@ -1,64 +1,54 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-
-/**
- * The persistent class for the pallet database table.
- * 
- */
-@Entity
-@NamedQuery(name="Pallet.findAll", query="SELECT p FROM Pallet p")
-public class Pallet implements Serializable {
+public class Pallet implements Serializable
+{
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
-
-	private Integer count;
-
-	@Column(name="good_id")
-	private Integer goodId;
-
-	//bi-directional one-to-one association to Good
-	@OneToOne(mappedBy="pallet")
-	private Good good;
+	private int id;
+	private int count;
+	private int goodid;
 
 	public Pallet() {
+		super();
 	}
 
-	public Integer getId() {
-		return this.id;
+	public Pallet(int id, int count, int goodid) {
+		super();
+		this.id = id;
+		this.count = count;
+		this.goodid = goodid;
 	}
 
-	public void setId(Integer id) {
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Integer getCount() {
-		return this.count;
+	public int getCount() {
+		return count;
 	}
 
-	public void setCount(Integer count) {
+	public void setCount(int count) {
 		this.count = count;
 	}
 
-	public Integer getGoodId() {
-		return this.goodId;
+	public int getGoodid() {
+		return goodid;
 	}
 
-	public void setGoodId(Integer goodId) {
-		this.goodId = goodId;
+	public void setGoodid(int goodid) {
+		this.goodid = goodid;
 	}
 
-	public Good getGood() {
-		return this.good;
+	@Override
+	public String toString() {
+		return "Pallet [id=" + id + ", count=" + count + ", goodid=" + goodid + "]";
 	}
-
-	public void setGood(Good good) {
-		this.good = good;
-	}
-
 }
