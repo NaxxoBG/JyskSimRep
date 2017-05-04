@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="http://ws.tier2" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.tier2" xmlns:intf="http://ws.tier2" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://model.tier2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<wsdl:definitions targetNamespace="http://ws.tier2" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.tier2" xmlns:intf="http://ws.tier2" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://model" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <!--WSDL created by Apache Axis version: 1.4
 Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
-  <schema targetNamespace="http://model.tier2" xmlns="http://www.w3.org/2001/XMLSchema">
+  <schema targetNamespace="http://model" xmlns="http://www.w3.org/2001/XMLSchema">
    <import namespace="http://ws.tier2"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
-   <complexType name="Pallet">
-    <sequence>
-     <element name="count" type="xsd:int"/>
-     <element name="goodId" type="xsd:int"/>
-     <element name="id" type="xsd:int"/>
-    </sequence>
-   </complexType>
    <complexType name="Good">
     <sequence>
+     <element name="goodId" type="xsd:int"/>
      <element name="manufacturer" nillable="true" type="xsd:string"/>
      <element name="name" nillable="true" type="xsd:string"/>
      <element name="palletId" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="Pallet">
+    <sequence>
+     <element name="count" type="xsd:int"/>
+     <element name="good" nillable="true" type="tns1:Good"/>
+     <element name="id" type="xsd:int"/>
     </sequence>
    </complexType>
    <complexType name="Order">
@@ -28,7 +29,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
    </complexType>
   </schema>
   <schema targetNamespace="http://ws.tier2" xmlns="http://www.w3.org/2001/XMLSchema">
-   <import namespace="http://model.tier2"/>
+   <import namespace="http://model"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
    <complexType name="ArrayOf_tns1_Good">
     <complexContent>

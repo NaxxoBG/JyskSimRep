@@ -15,25 +15,25 @@
   <service name="WarehouseWS" provider="java:RPC" style="rpc" use="encoded">
       <parameter name="wsdlTargetNamespace" value="http://ws.tier2"/>
       <parameter name="wsdlServiceElement" value="WarehouseWSService"/>
-      <parameter name="schemaUnqualified" value="http://ws.tier2,http://model.tier2"/>
+      <parameter name="schemaUnqualified" value="http://ws.tier2,http://model"/>
       <parameter name="wsdlServicePort" value="WarehouseWS"/>
       <parameter name="className" value="tier2.ws.WarehouseWSSoapBindingImpl"/>
       <parameter name="wsdlPortType" value="WarehouseWS"/>
       <parameter name="typeMappingVersion" value="1.2"/>
       <operation name="insertPallet" qname="operNS:insertPallet" xmlns:operNS="http://ws.tier2" returnQName="insertPalletReturn" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
-        <parameter qname="pallet" type="tns:Pallet" xmlns:tns="http://model.tier2"/>
+        <parameter qname="pallet" type="tns:Pallet" xmlns:tns="http://model"/>
       </operation>
-      <operation name="executeOrder" qname="operNS:executeOrder" xmlns:operNS="http://ws.tier2" returnQName="executeOrderReturn" returnType="rtns:ArrayOf_tns1_Pallet" xmlns:rtns="http://ws.tier2" returnItemType="tns2:Pallet" xmlns:tns2="http://model.tier2" soapAction="" >
-        <parameter qname="order" type="tns:Order" xmlns:tns="http://model.tier2"/>
+      <operation name="executeOrder" qname="operNS:executeOrder" xmlns:operNS="http://ws.tier2" returnQName="executeOrderReturn" returnType="rtns:ArrayOf_tns1_Pallet" xmlns:rtns="http://ws.tier2" returnItemType="tns2:Pallet" xmlns:tns2="http://model" soapAction="" >
+        <parameter qname="order" type="tns:Order" xmlns:tns="http://model"/>
       </operation>
-      <operation name="getPallet" qname="operNS:getPallet" xmlns:operNS="http://ws.tier2" returnQName="getPalletReturn" returnType="rtns:Pallet" xmlns:rtns="http://model.tier2" soapAction="" >
+      <operation name="getPallet" qname="operNS:getPallet" xmlns:operNS="http://ws.tier2" returnQName="getPalletReturn" returnType="rtns:Pallet" xmlns:rtns="http://model" soapAction="" >
       </operation>
       <parameter name="allowedMethods" value="executeOrder getPallet insertPallet"/>
 
       <typeMapping
-        xmlns:ns="http://model.tier2"
+        xmlns:ns="http://model"
         qname="ns:Order"
-        type="java:tier2.model.Order"
+        type="java:model.Order"
         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
         encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
@@ -41,31 +41,31 @@
       <arrayMapping
         xmlns:ns="http://ws.tier2"
         qname="ns:ArrayOf_tns1_Pallet"
-        type="java:tier2.model.Pallet[]"
-        innerType="cmp-ns:Pallet" xmlns:cmp-ns="http://model.tier2"
-        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-      />
-      <typeMapping
-        xmlns:ns="http://model.tier2"
-        qname="ns:Pallet"
-        type="java:tier2.model.Pallet"
-        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
-        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
-        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-      />
-      <typeMapping
-        xmlns:ns="http://model.tier2"
-        qname="ns:Good"
-        type="java:tier2.model.Good"
-        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
-        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        type="java:model.Pallet[]"
+        innerType="cmp-ns:Pallet" xmlns:cmp-ns="http://model"
         encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
       />
       <arrayMapping
         xmlns:ns="http://ws.tier2"
         qname="ns:ArrayOf_tns1_Good"
-        type="java:tier2.model.Good[]"
-        innerType="cmp-ns:Good" xmlns:cmp-ns="http://model.tier2"
+        type="java:model.Good[]"
+        innerType="cmp-ns:Good" xmlns:cmp-ns="http://model"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model"
+        qname="ns:Pallet"
+        type="java:model.Pallet"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://model"
+        qname="ns:Good"
+        type="java:model.Good"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
         encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
       />
   </service>

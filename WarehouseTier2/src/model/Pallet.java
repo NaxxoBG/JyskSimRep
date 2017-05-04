@@ -1,4 +1,4 @@
-package tier2.model;
+package model;
 
 import java.io.Serializable;
 
@@ -8,15 +8,15 @@ public class Pallet implements Serializable
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int count;
-	private int goodId;
+	private Good good;
 
 	public Pallet() {}
 
-	public Pallet(int id, int count, int goodId) {
+	public Pallet(int id, int count, Good good) {
 		super();
 		this.id = id;
 		this.count = count;
-		this.goodId = goodId;
+		this.good = good;
 	}
 
 	public int getId() {
@@ -35,16 +35,17 @@ public class Pallet implements Serializable
 		this.count = count;
 	}
 
-	public int getGoodId() {
-		return goodId;
+
+	public Good getGood() {
+		return good;
 	}
 
-	public void setGoodId(int goodid) {
-		this.goodId = goodid;
+	public void setGood(Good good) {
+		this.good = good;
 	}
 
 	@Override
 	public String toString() {
-		return "Pallet [id=" + id + ", count=" + count + ", goodid=" + goodId + "]";
+		return "Pallet [id=" + id + ", count=" + count + ", goodid=" + good.toString() + "]";
 	}
 }
