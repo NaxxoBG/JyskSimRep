@@ -7,32 +7,39 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import model.Good;
+import model.Pallet;
+import tier3.Database;
 import tier3.IDatabase;
 
 public class WarehouseServer {
 	private IDatabase db;
-
-	public WarehouseServer() {
-		try {
-			db = (IDatabase) Naming.lookup("Warehouse");
-		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			e.printStackTrace();
+	
+	private IDatabase getDatabase(){
+		if(db == null){
+			try {
+				db = (IDatabase) Naming.lookup("Warehouse");
+			} catch (MalformedURLException | RemoteException | NotBoundException e) {
+				e.printStackTrace();
+			}
 		}
+		return db;
 	}
 
-	public static boolean insertGood(Good good) {
-		WarehouseServer s = new WarehouseServer();
+	public boolean insertGood(Good good) {
 		try {
-			s.db.update("INSERT INTO jysksim.good VALUES(?, ?, ?);", good.getPalletId(), good.getManufacturer(),
+			getDatabase().update("INSERT INTO jysksim.good VALUES(?, ?, ?);", good.getPalletId(), good.getManufacturer(),
 					good.getName());
 			return true;
-		} catch (RemoteException | SQLException e) {
+		} catch (RemoteException | SQLException | NullPointerException e) {
+			db = null;
 			e.printStackTrace();
 			return false;
 		}
 	}
-
-	public static void main(String[] args) {
-		System.out.println(WarehouseServer.insertGood(new Good(12141, "Nestle", "Chocolate")));
+	
+	public boolean insertPallet(Pallet pallet){
+		IDatabase db = getDatabase();
+		
+		return true;
 	}
 }
