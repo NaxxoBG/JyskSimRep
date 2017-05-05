@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://impl.ws" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://impl.ws" xmlns:intf="http://impl.ws" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://model" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://model" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://impl.ws"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="Good">
+    <sequence>
+     <element name="manufacturer" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="palletId" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="Pallet">
+    <sequence>
+     <element name="count" type="xsd:int"/>
+     <element name="good" nillable="true" type="tns1:Good"/>
+     <element name="id" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://impl.ws" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_Pallet">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Pallet[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="executeOrderRequest">
+
+      <wsdl:part name="order" type="xsd:anyType">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="executeOrderResponse">
+
+      <wsdl:part name="executeOrderReturn" type="impl:ArrayOf_tns1_Pallet">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="insertPalletRequest">
+
+      <wsdl:part name="pallet" type="tns1:Pallet">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="insertPalletResponse">
+
+      <wsdl:part name="insertPalletReturn" type="xsd:boolean">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WarehouseWS">
+
+      <wsdl:operation name="insertPallet" parameterOrder="pallet">
+
+         <wsdl:input message="impl:insertPalletRequest" name="insertPalletRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:insertPalletResponse" name="insertPalletResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="executeOrder" parameterOrder="order">
+
+         <wsdl:input message="impl:executeOrderRequest" name="executeOrderRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:executeOrderResponse" name="executeOrderResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WarehouseWSSoapBinding" type="impl:WarehouseWS">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="insertPallet">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="insertPalletRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="insertPalletResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="executeOrder">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="executeOrderRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="executeOrderResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WarehouseWSService">
+
+      <wsdl:port binding="impl:WarehouseWSSoapBinding" name="WarehouseWS">
+
+         <wsdlsoap:address location="http://localhost:8080/WarehouseTier2/services/WarehouseWS"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
