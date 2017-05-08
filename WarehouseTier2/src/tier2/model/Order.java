@@ -1,4 +1,4 @@
-package model;
+package tier2.model;
 
 import java.io.Serializable;
 import java.util.Arrays;

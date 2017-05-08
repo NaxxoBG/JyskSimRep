@@ -1,4 +1,4 @@
-package iremote;
+package shared.iremote;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

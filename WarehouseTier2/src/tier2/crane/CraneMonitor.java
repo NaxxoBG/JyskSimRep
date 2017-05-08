@@ -1,10 +1,10 @@
-package crane;
+package tier2.crane;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-import database.DatabaseRemote;
-import model.Pallet;
+import tier2.database.DatabaseRemote;
+import tier2.model.Pallet;
 
 public class CraneMonitor {
 	private static CraneMonitor crane;

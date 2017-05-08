@@ -1,4 +1,4 @@
-package database;
+package tier3.database;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 import org.postgresql.util.PSQLException;
 
-import iremote.IDatabase;
+import shared.iremote.IDatabase;
+
 
 public class Database implements IDatabase {
 	static final String HOST = "ec2-54-228-182-57.eu-west-1.compute.amazonaws.com";

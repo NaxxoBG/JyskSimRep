@@ -1,4 +1,4 @@
-package crane;
+package tier2.crane;
 
 import java.util.concurrent.ThreadLocalRandom;
 

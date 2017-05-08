@@ -1,4 +1,4 @@
-package database;
+package tier2.database;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -7,9 +7,9 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import iremote.IDatabase;
-import model.Good;
-import model.Pallet;
+import shared.iremote.IDatabase;
+import tier2.model.Good;
+import tier2.model.Pallet;
 
 public class DatabaseRemote {
 
