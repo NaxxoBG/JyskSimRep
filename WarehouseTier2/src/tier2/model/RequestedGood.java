@@ -7,7 +7,9 @@ public class RequestedGood extends Good implements Serializable {
 	private int count;
 	private int stationId = -1;
 	
-	public RequestedGood() {}
+	public RequestedGood() {
+		super();
+	}
 	
 	public RequestedGood(Good good, int count) {
 		super(good.getGoodid(), good.getManufacturer(), good.getName());

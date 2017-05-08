@@ -43,7 +43,7 @@ public class CraneMonitor {
 		goods.add(new RequestedGood(good, count));
 		notifyAll();
 	}
-	
+
 	public synchronized void putPalletOnShelf() {
 		while (pallets.isEmpty() && goods.isEmpty()) {
 			try {
@@ -76,21 +76,21 @@ public class CraneMonitor {
 			}
 		}
 	}
-	
-	public synchronized Pallet[] getPallets(int stationId){
+
+	public synchronized Pallet[] getPallets(int stationId) {
 		List<Pallet> pal = new ArrayList<>();
-		for(Pallet p : pallets){
-			if(p.getPickStattioId() == stationId){
+		for (Pallet p : pallets) {
+			if (p.getPickStationId() == stationId){
 				pal.add(p);
 			}
 		}
 		return pal.toArray(new Pallet[pal.size()]);
 	}
-	
+
 	public boolean isReqQueueEmpty() {
 		return goods.isEmpty();
 	}
-	
+
 	public boolean isPalletQueueEmpty() {
 		return pallets.isEmpty();
 	}

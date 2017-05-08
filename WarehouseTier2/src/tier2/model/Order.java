@@ -9,7 +9,9 @@ public class Order implements Serializable
 	private int Id;
 	private Good[] goods;
 
-	public Order(){}
+	public Order() {
+		super();
+	}
 	
 	public Order(int id, Good[] goods) {
 		this.Id = id;
