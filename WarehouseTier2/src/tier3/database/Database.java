@@ -47,7 +47,6 @@ public class Database implements IDatabase {
 	}
 
 	public ArrayList<Object[]> query(String sql, Object... args) throws SQLException {
-		System.out.println("Query called : " + sql);
 		openDatabase();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -80,11 +79,6 @@ public class Database implements IDatabase {
 	}
 
 	public int update(String sql, Object... args) throws SQLException {
-		System.out.println("update called : " + sql);
-		for(Object o : args){
-			System.out.println(o.toString());
-		}
-
 		openDatabase();
 		int rowCount = 0;
 		PreparedStatement statement = null;

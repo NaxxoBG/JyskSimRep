@@ -8,9 +8,10 @@ public class Pallet implements Serializable
 	private int id;
 	private int count;
 	private Good good;
+	
+	private int pickStattioId = -1;
 
 	public Pallet() {
-		super();
 	}
 
 	public Pallet(int id, int count, Good good) {
@@ -42,6 +43,14 @@ public class Pallet implements Serializable
 
 	public void setGood(Good good) {
 		this.good = good;
+	}
+	
+	public int getPickStattioId() {
+		return pickStattioId;
+	}
+
+	public void setPickStattioId(int pickStattioId) {
+		this.pickStattioId = pickStattioId;
 	}
 
 	@Override
