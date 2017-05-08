@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="http://impl.ws" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://impl.ws" xmlns:intf="http://impl.ws" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://model" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<wsdl:definitions targetNamespace="http://ws.tier2" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://ws.tier2" xmlns:intf="http://ws.tier2" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://model.tier2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 <!--WSDL created by Apache Axis version: 1.4
 Built on Apr 22, 2006 (06:55:48 PDT)-->
  <wsdl:types>
-  <schema targetNamespace="http://model" xmlns="http://www.w3.org/2001/XMLSchema">
-   <import namespace="http://impl.ws"/>
+  <schema targetNamespace="http://model.tier2" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://ws.tier2"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
    <complexType name="Good">
     <sequence>
+     <element name="goodid" type="xsd:int"/>
      <element name="manufacturer" nillable="true" type="xsd:string"/>
      <element name="name" nillable="true" type="xsd:string"/>
      <element name="palletId" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="Order">
+    <sequence>
+     <element name="goods" nillable="true" type="impl:ArrayOf_tns1_Good"/>
+     <element name="id" type="xsd:int"/>
     </sequence>
    </complexType>
    <complexType name="Pallet">
@@ -21,9 +28,16 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
     </sequence>
    </complexType>
   </schema>
-  <schema targetNamespace="http://impl.ws" xmlns="http://www.w3.org/2001/XMLSchema">
-   <import namespace="http://model"/>
+  <schema targetNamespace="http://ws.tier2" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.tier2"/>
    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_Good">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Good[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
    <complexType name="ArrayOf_tns1_Pallet">
     <complexContent>
      <restriction base="soapenc:Array">
@@ -36,7 +50,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:message name="executeOrderRequest">
 
-      <wsdl:part name="order" type="xsd:anyType">
+      <wsdl:part name="order" type="tns1:Order">
 
       </wsdl:part>
 
@@ -68,18 +82,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:portType name="WarehouseWS">
 
-      <wsdl:operation name="insertPallet" parameterOrder="pallet">
-
-         <wsdl:input message="impl:insertPalletRequest" name="insertPalletRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:insertPalletResponse" name="insertPalletResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
       <wsdl:operation name="executeOrder" parameterOrder="order">
 
          <wsdl:input message="impl:executeOrderRequest" name="executeOrderRequest">
@@ -92,29 +94,23 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
+      <wsdl:operation name="insertPallet" parameterOrder="pallet">
+
+         <wsdl:input message="impl:insertPalletRequest" name="insertPalletRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:insertPalletResponse" name="insertPalletResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
    </wsdl:portType>
 
    <wsdl:binding name="WarehouseWSSoapBinding" type="impl:WarehouseWS">
 
       <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-
-      <wsdl:operation name="insertPallet">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="insertPalletRequest">
-
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="insertPalletResponse">
-
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
 
       <wsdl:operation name="executeOrder">
 
@@ -122,13 +118,31 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
          <wsdl:input name="executeOrderRequest">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
 
          </wsdl:input>
 
          <wsdl:output name="executeOrderResponse">
 
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://impl.ws" use="encoded"/>
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="insertPallet">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="insertPalletRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="insertPalletResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
 
          </wsdl:output>
 

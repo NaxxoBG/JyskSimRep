@@ -7,8 +7,8 @@
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <ns1:parameter name="sendXsiTypes" value="true"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -33,23 +33,25 @@
   <ns1:parameter name="className" value="org.apache.axis.Version"/>
  </ns1:service>
  <ns1:service name="WarehouseWS" provider="java:RPC">
-  <ns2:operation name="insertPallet" qname="ns1:insertPallet" returnQName="insertPalletReturn" returnType="xsd:boolean" soapAction="" xmlns:ns1="http://impl.ws" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
-   <ns3:parameter name="pallet" type="ns2:Pallet" xmlns:ns2="http://model" xmlns:ns3="http://xml.apache.org/axis/wsdd/"/>
+  <ns2:operation name="executeOrder" qname="ns1:executeOrder" returnQName="executeOrderReturn" returnType="ns1:ArrayOf_tns1_Pallet" soapAction="" xmlns:ns1="http://ws.tier2" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
+   <ns3:parameter name="order" type="ns2:Order" xmlns:ns2="http://model.tier2" xmlns:ns3="http://xml.apache.org/axis/wsdd/"/>
   </ns2:operation>
-  <ns1:operation name="executeOrder" qname="ns3:executeOrder" returnQName="executeOrderReturn" returnType="ns3:ArrayOf_tns1_Pallet" soapAction="" xmlns:ns3="http://impl.ws">
-   <ns1:parameter name="order" type="xsd:anyType" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns1:operation name="insertPallet" qname="ns3:insertPallet" returnQName="insertPalletReturn" returnType="xsd:boolean" soapAction="" xmlns:ns3="http://ws.tier2" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <ns1:parameter name="pallet" type="ns4:Pallet" xmlns:ns4="http://model.tier2"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="executeOrder insertPallet"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="WarehouseWS"/>
-  <ns1:parameter name="className" value="ws.impl.WarehouseWS"/>
+  <ns1:parameter name="className" value="tier2.ws.WarehouseWS"/>
   <ns1:parameter name="wsdlServicePort" value="WarehouseWS"/>
-  <ns1:parameter name="wsdlTargetNamespace" value="http://impl.ws"/>
+  <ns1:parameter name="wsdlTargetNamespace" value="http://ws.tier2"/>
   <ns1:parameter name="wsdlServiceElement" value="WarehouseWSService"/>
-  <ns1:parameter name="schemaUnqualified" value="http://model,http://impl.ws"/>
-  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns4:Pallet" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:model.Pallet" xmlns:ns4="http://model"/>
-  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns5:Good" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:model.Good" xmlns:ns5="http://model"/>
-  <ns1:arrayMapping innerType="ns7:Pallet" languageSpecificType="java:model.Pallet[]" qname="ns6:ArrayOf_tns1_Pallet" xmlns:ns6="http://impl.ws" xmlns:ns7="http://model"/>
+  <ns1:parameter name="schemaUnqualified" value="http://ws.tier2,http://model.tier2"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns5:Order" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:tier2.model.Order" xmlns:ns5="http://model.tier2"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns6:Pallet" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:tier2.model.Pallet" xmlns:ns6="http://model.tier2"/>
+  <ns1:typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" qname="ns7:Good" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:tier2.model.Good" xmlns:ns7="http://model.tier2"/>
+  <ns1:arrayMapping innerType="ns9:Pallet" languageSpecificType="java:tier2.model.Pallet[]" qname="ns8:ArrayOf_tns1_Pallet" xmlns:ns8="http://ws.tier2" xmlns:ns9="http://model.tier2"/>
+  <ns1:arrayMapping innerType="ns11:Good" languageSpecificType="java:tier2.model.Good[]" qname="ns10:ArrayOf_tns1_Good" xmlns:ns10="http://ws.tier2" xmlns:ns11="http://model.tier2"/>
  </ns1:service>
  <ns1:transport name="http">
   <ns1:requestFlow>

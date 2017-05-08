@@ -15,8 +15,4 @@ public class WarehouseWS {
 		return null;
 	}
 
-		public static void main(String[] args) {
-			Pallet pallet = new Pallet(5, 10, new Good(2, "cax", "csd"));
-			System.out.println(CraneMonitor.getInstance().addToPallets(pallet));
-		}
 }
