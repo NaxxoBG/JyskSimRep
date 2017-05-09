@@ -6,7 +6,7 @@ import java.util.List;
 import tier2.model.Pallet;
 
 public class SimplePickAlgo implements IPickUpAlgo {
-	
+
 	public List<Pallet> getBestPallets(List<Pallet> allPallets, int count) {
 		List<Pallet> pallets = new ArrayList<>();
 		int temp = 0;

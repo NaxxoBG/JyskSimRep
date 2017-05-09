@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.iremote.IDatabase;
-import tier2.algo.IPickUpAlgo;
-import tier2.algo.SimplePickAlgo;
 import tier2.model.Good;
 import tier2.model.Pallet;
 import tier2.model.RequestedGood;
@@ -61,7 +59,7 @@ public class DatabaseRemote {
 		} 
 		return result > 0;
 	}
-	
+
 	public static int getGoodId(String manufacturer, String name) {
 		IDatabase database = getDatabase();
 		try {
@@ -77,7 +75,7 @@ public class DatabaseRemote {
 		}
 		return -1;
 	}
-	
+
 	public static List<Pallet> getPallets(RequestedGood good) {
 		IDatabase database = getDatabase();
 		try {

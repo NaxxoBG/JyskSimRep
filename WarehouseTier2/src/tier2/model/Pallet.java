@@ -2,8 +2,7 @@ package tier2.model;
 
 import java.io.Serializable;
 
-public class Pallet implements Serializable
-{
+public class Pallet implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private int count;
@@ -13,7 +12,7 @@ public class Pallet implements Serializable
 
 	public Pallet() {
 	}
-	
+
 	public Pallet(int id, int count, Good good) {
 		this.id = id;
 		this.count = count;

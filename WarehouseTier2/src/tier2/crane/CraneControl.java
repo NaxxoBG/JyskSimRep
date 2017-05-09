@@ -16,7 +16,7 @@ public class CraneControl {
 	private static CraneControl crane;
 	private Queue<Pallet> pallets;
 	private Queue<RequestedGood> goods;
-	
+
 	private IPickUpAlgo pickUpAlgo;
 
 	private CraneControl() {
@@ -30,7 +30,7 @@ public class CraneControl {
 	public synchronized static CraneControl getInstance() {
 		if (crane == null) {
 			crane = new CraneControl();
-		} 
+		}
 		return crane;
 	}
 
@@ -50,9 +50,10 @@ public class CraneControl {
 		while (isPalletQueueEmpty() && isReqQueueEmpty()) {
 			try {
 				wait();
-			} catch (InterruptedException e) {}
+			} catch (InterruptedException e) {
+			}
 		}
-		if(!isPalletQueueEmpty()){
+		if (!isPalletQueueEmpty()) {
 			Pallet pallet = pallets.poll();
 			if (!DatabaseRemote.insertPallet(pallet)) {
 				addToPallets(pallet);
@@ -69,9 +70,10 @@ public class CraneControl {
 		while (isReqQueueEmpty() && isPalletQueueEmpty()) {
 			try {
 				wait();
-			} catch (InterruptedException e) {}
+			} catch (InterruptedException e) {
+			}
 		}
-		if(!isReqQueueEmpty()){
+		if (!isReqQueueEmpty()) {
 			RequestedGood good = goods.poll();
 			good.setGoodid(DatabaseRemote.getGoodId(good.getManufacturer(), good.getName()));
 			List<Pallet> palletsToPick = pickUpAlgo.getBestPallets(DatabaseRemote.getPallets(good), good.getCount());
@@ -92,7 +94,7 @@ public class CraneControl {
 	public synchronized Pallet[] getPallets(int stationId) {
 		List<Pallet> pal = new ArrayList<>();
 		for (Pallet p : pallets) {
-			if (p.getPickStationId() == stationId){
+			if (p.getPickStationId() == stationId) {
 				pal.add(p);
 				pallets.remove(p);
 			}
@@ -105,8 +107,10 @@ public class CraneControl {
 	}
 
 	private boolean isPalletQueueEmpty() {
-		for(Pallet p : pallets){
-			if(p.getPickStationId() == -1) return false;
+		for (Pallet p : pallets) {
+			if (p.getPickStationId() == -1){
+				return false;
+			}
 		}
 		return true;
 	}

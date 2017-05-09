@@ -2,14 +2,14 @@ package tier2.model;
 
 import java.io.Serializable;
 
-public class Good implements Serializable
-{
+public class Good implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String manufacturer;
 	private String name;
 	private int goodid = -1;
 
-	public Good() {}
+	public Good() {
+	}
 
 	public Good(String manufacturer, String name) {
 		this.manufacturer = manufacturer;
@@ -42,6 +42,6 @@ public class Good implements Serializable
 
 	@Override
 	public String toString() {
-		return "Good [" +  "manufacturer=" + manufacturer + ", name=" + name + "]";
+		return "Good [" + "manufacturer=" + manufacturer + ", name=" + name + "]";
 	}
 }
