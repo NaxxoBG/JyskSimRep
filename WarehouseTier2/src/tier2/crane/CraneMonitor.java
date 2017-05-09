@@ -34,45 +34,56 @@ public class CraneMonitor {
 		System.out.println(pallet.getId());
 		System.out.println(pallet.getCount());
 		System.out.println(pallet.getGood());
+		pallet.setPickStattioId(-1);
 		pallets.add(pallet);
 		notifyAll();
 		return true;
 	}
 
-	public synchronized void addToRequestedGoods(Good good, int count) {
-		goods.add(new RequestedGood(good, count));
+	public synchronized void addToRequestedGoods(RequestedGood reqGood) {
+		System.out.println("addToRequestedGoods " + reqGood.toString());
+		goods.add(reqGood);
 		notifyAll();
 	}
 
 	public synchronized void putPalletOnShelf() {
-		while (pallets.isEmpty() && goods.isEmpty()) {
+		while (isPalletQueueEmpty() && isReqQueueEmpty()) {
 			try {
 				wait();
 			} catch (InterruptedException e) {}
 		}
-		Pallet pallet = pallets.poll();
-		if (!DatabaseRemote.insertPallet(pallet)) {
-			addToPallets(pallet);
+		if(!isPalletQueueEmpty()){
+			Pallet pallet = pallets.poll();
+			if (!DatabaseRemote.insertPallet(pallet)) {
+				addToPallets(pallet);
+			}
+			try {
+				Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 5000));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		try {
-			Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 5000));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		notifyAll();
 	}
 
 	public synchronized void getGoodForOrder() {
-		RequestedGood good = goods.poll();
-		Pallet[] palletsToPick = DatabaseRemote.getPalletsForGood(good);
-		for (Pallet pallet : palletsToPick) {
+		while (isReqQueueEmpty() && isPalletQueueEmpty()) {
 			try {
-				Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 2000));
-				DatabaseRemote.removePallet(pallet.getId());
-				pallet.setPickStattioId(good.getStationId());
-				pallets.add(pallet);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				wait();
+			} catch (InterruptedException e) {}
+		}
+		if(!isReqQueueEmpty()){
+			RequestedGood good = goods.poll();
+			Pallet[] palletsToPick = DatabaseRemote.getPalletsForGood(good);
+			for (Pallet pallet : palletsToPick) {
+				try {
+					Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 2000));
+					DatabaseRemote.removePallet(pallet.getId());
+					pallet.setPickStattioId(good.getStationId());
+					pallets.add(pallet);
+					good.setFinished(true);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -87,11 +98,14 @@ public class CraneMonitor {
 		return pal.toArray(new Pallet[pal.size()]);
 	}
 
-	public boolean isReqQueueEmpty() {
+	private boolean isReqQueueEmpty() {
 		return goods.isEmpty();
 	}
 
-	public boolean isPalletQueueEmpty() {
-		return pallets.isEmpty();
+	private boolean isPalletQueueEmpty() {
+		for(Pallet p : pallets){
+			if(p.getPickStationId() == -1) return false;
+		}
+		return true;
 	}
 }

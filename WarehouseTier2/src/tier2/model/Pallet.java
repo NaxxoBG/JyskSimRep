@@ -12,11 +12,9 @@ public class Pallet implements Serializable
 	private int pickStattioId = -1;
 
 	public Pallet() {
-		super();
 	}
 
 	public Pallet(int id, int count, Good good) {
-		super();
 		this.id = id;
 		this.count = count;
 		this.good = good;

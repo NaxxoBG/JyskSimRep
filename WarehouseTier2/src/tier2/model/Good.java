@@ -10,12 +10,10 @@ public class Good implements Serializable
 	private String name;
 	private int goodid = -1;
 
-	public Good() {
-		super();
-	}
+	public Good() {}
 
-	public Good(int palletId, String manufacturer, String name) {
-		this.palletId = palletId;
+	public Good(String manufacturer, String name) {
+//		this.palletId = palletId;
 		this.manufacturer = manufacturer;
 		this.name = name;
 	}

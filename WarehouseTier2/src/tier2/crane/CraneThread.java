@@ -11,12 +11,8 @@ public class CraneThread implements Runnable {
 	public void run() {
 		while (true) {
 			System.err.println("THREAD IS RUNNING");
-			if (!monitor.isPalletQueueEmpty()) {
-				monitor.putPalletOnShelf();
-			}
-			if (!monitor.isReqQueueEmpty()) {
-				monitor.getGoodForOrder();
-			}
+			monitor.putPalletOnShelf();
+			monitor.getGoodForOrder();
 		}
 	}
 }

@@ -65,7 +65,7 @@ public class DatabaseRemote {
 		IDatabase database = getDatabase();
 		int result = 0;
 		try {
-			result = database.update("delete from jysksim.pallet where id = palletId;", palletId);
+			result = database.update("delete from jysksim.pallet where id = ?;", palletId);
 		} catch (RemoteException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +91,10 @@ public class DatabaseRemote {
 	public static Pallet[] getPalletsForGood(RequestedGood good) {
 		IDatabase database = getDatabase();
 		try {
-			ArrayList<Object[]> res = database.query("SELECT id, count from jysksim.pallet where goodId = ?;", getGoodId(good.getManufacturer(), good.getName()));
+
+			int id = getGoodId(good.getManufacturer(), good.getName());
+			good.setGoodid(id);
+			ArrayList<Object[]> res = database.query("SELECT id, count from jysksim.pallet where goodId = ?;", good.getGoodid());
 			List<Pallet> convertedPalsFromQ = new ArrayList<>();
 			for (Object[] objects : res) {
 				convertedPalsFromQ.add(new Pallet((int) objects[0], (int) objects[1], good));

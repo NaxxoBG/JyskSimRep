@@ -7,13 +7,15 @@ public class RequestedGood extends Good implements Serializable {
 	private int count;
 	private int stationId = -1;
 	
-	public RequestedGood() {
-		super();
-	}
+	private boolean finished;
 	
-	public RequestedGood(Good good, int count) {
-		super(good.getGoodid(), good.getManufacturer(), good.getName());
+	public RequestedGood() {}
+	
+	public RequestedGood(Good good, int count, int stationId) {
+		super(good.getManufacturer(), good.getName());
 		this.count = count;
+		this.stationId = stationId;
+		finished = false;
 	}
 	
 	public int getCount() {
@@ -32,10 +34,18 @@ public class RequestedGood extends Good implements Serializable {
 		return stationId;
 	}
 	
+	public boolean isFinished(){
+		return finished;
+	}
+	
+	public void setFinished(boolean value){
+		this.finished = value;
+	}
+	
 	
 	
 	@Override
 	public String toString() {
-		return "RequestedGood [count=" + count + "]";
+		return "RequestedGood [count=" + count + "]" + stationId;
 	}
 }
