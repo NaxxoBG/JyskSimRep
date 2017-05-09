@@ -20,22 +20,16 @@
       <parameter name="className" value="tier2.ws.WarehouseWSSoapBindingImpl"/>
       <parameter name="wsdlPortType" value="WarehouseWS"/>
       <parameter name="typeMappingVersion" value="1.2"/>
-      <operation name="executeOrder" qname="operNS:executeOrder" xmlns:operNS="http://ws.tier2" returnQName="executeOrderReturn" returnType="rtns:ArrayOf_tns1_Pallet" xmlns:rtns="http://ws.tier2" returnItemType="tns2:Pallet" xmlns:tns2="http://model.tier2" soapAction="" >
-        <parameter qname="order" type="tns:Order" xmlns:tns="http://model.tier2"/>
-      </operation>
       <operation name="insertPallet" qname="operNS:insertPallet" xmlns:operNS="http://ws.tier2" returnQName="insertPalletReturn" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
         <parameter qname="pallet" type="tns:Pallet" xmlns:tns="http://model.tier2"/>
       </operation>
+      <operation name="executeOrder" qname="operNS:executeOrder" xmlns:operNS="http://ws.tier2" returnQName="executeOrderReturn" returnType="rtns:ArrayOf_tns1_Pallet" xmlns:rtns="http://ws.tier2" returnItemType="tns2:Pallet" xmlns:tns2="http://model.tier2" soapAction="" >
+        <parameter qname="good" type="tns:Good" xmlns:tns="http://model.tier2"/>
+        <parameter qname="count" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="stationId" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
       <parameter name="allowedMethods" value="executeOrder insertPallet"/>
 
-      <typeMapping
-        xmlns:ns="http://model.tier2"
-        qname="ns:Order"
-        type="java:tier2.model.Order"
-        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
-        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
-        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-      />
       <arrayMapping
         xmlns:ns="http://ws.tier2"
         qname="ns:ArrayOf_tns1_Pallet"
@@ -57,13 +51,6 @@
         type="java:tier2.model.Good"
         serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
         deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
-        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
-      />
-      <arrayMapping
-        xmlns:ns="http://ws.tier2"
-        qname="ns:ArrayOf_tns1_Good"
-        type="java:tier2.model.Good[]"
-        innerType="cmp-ns:Good" xmlns:cmp-ns="http://model.tier2"
         encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
       />
   </service>

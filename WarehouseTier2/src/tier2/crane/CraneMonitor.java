@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
+import tier2.algo.PickUpAlgo;
+import tier2.algo.SimplePickAlgo;
 import tier2.database.DatabaseRemote;
-import tier2.model.Good;
 import tier2.model.Pallet;
 import tier2.model.RequestedGood;
 
@@ -15,10 +16,13 @@ public class CraneMonitor {
 	private static CraneMonitor crane;
 	private Queue<Pallet> pallets;
 	private Queue<RequestedGood> goods;
+	
+	private PickUpAlgo pickUpAlgo;
 
 	private CraneMonitor() {
 		this.pallets = new ArrayDeque<>();
 		this.goods = new ArrayDeque<>();
+		pickUpAlgo = new SimplePickAlgo();
 		Thread thread = new Thread(new CraneThread(this));
 		thread.start();
 	}
@@ -31,18 +35,16 @@ public class CraneMonitor {
 	}
 
 	public synchronized boolean addToPallets(Pallet pallet) {
-		System.out.println(pallet.getId());
-		System.out.println(pallet.getCount());
-		System.out.println(pallet.getGood());
 		pallet.setPickStattioId(-1);
 		pallets.add(pallet);
+		System.out.println("New Pallet : " + pallet.toString() + "\n" + pallet.getGood().toString());
 		notifyAll();
 		return true;
 	}
 
 	public synchronized void addToRequestedGoods(RequestedGood reqGood) {
-		System.out.println("addToRequestedGoods " + reqGood.toString());
 		goods.add(reqGood);
+		System.out.println("New Request : " + reqGood.toString());
 		notifyAll();
 	}
 
@@ -73,18 +75,19 @@ public class CraneMonitor {
 		}
 		if(!isReqQueueEmpty()){
 			RequestedGood good = goods.poll();
-			Pallet[] palletsToPick = DatabaseRemote.getPalletsForGood(good);
+			good.setGoodid(DatabaseRemote.getGoodId(good.getManufacturer(), good.getName()));
+			List<Pallet> palletsToPick = pickUpAlgo.getBestPallets(DatabaseRemote.getPallets(good), good.getCount());
 			for (Pallet pallet : palletsToPick) {
 				try {
 					Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 2000));
 					DatabaseRemote.removePallet(pallet.getId());
 					pallet.setPickStattioId(good.getStationId());
 					pallets.add(pallet);
-					good.setFinished(true);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+			good.setFinished(true);
 		}
 	}
 

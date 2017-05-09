@@ -42,10 +42,8 @@ public class RequestedGood extends Good implements Serializable {
 		this.finished = value;
 	}
 	
-	
-	
 	@Override
 	public String toString() {
-		return "RequestedGood [count=" + count + "]" + stationId;
+		return "RequestedGood [Name= " + getName() + ", manufacturer= " + getManufacturer() + ", count= " + getCount() + "]";
 	}
 }

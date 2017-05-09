@@ -9,11 +9,11 @@ public class Pallet implements Serializable
 	private int count;
 	private Good good;
 
-	private int pickStattioId = -1;
+	private int pickStationId = -1;
 
 	public Pallet() {
 	}
-
+	
 	public Pallet(int id, int count, Good good) {
 		this.id = id;
 		this.count = count;
@@ -45,11 +45,11 @@ public class Pallet implements Serializable
 	}
 
 	public int getPickStationId() {
-		return pickStattioId;
+		return pickStationId;
 	}
 
 	public void setPickStattioId(int pickStattioId) {
-		this.pickStattioId = pickStattioId;
+		this.pickStationId = pickStattioId;
 	}
 
 	@Override

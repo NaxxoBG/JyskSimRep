@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Good implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	private int palletId;
 	private String manufacturer;
 	private String name;
 	private int goodid = -1;
@@ -13,17 +12,8 @@ public class Good implements Serializable
 	public Good() {}
 
 	public Good(String manufacturer, String name) {
-//		this.palletId = palletId;
 		this.manufacturer = manufacturer;
 		this.name = name;
-	}
-
-	public int getPalletId() {
-		return palletId;
-	}
-
-	public void setPalletId(int palletId) {
-		this.palletId = palletId;
 	}
 
 	public String getManufacturer() {
@@ -52,6 +42,6 @@ public class Good implements Serializable
 
 	@Override
 	public String toString() {
-		return "Good [palletId=" + palletId + ", manufacturer=" + manufacturer + ", name=" + name + "]";
+		return "Good [" +  "manufacturer=" + manufacturer + ", name=" + name + "]";
 	}
 }

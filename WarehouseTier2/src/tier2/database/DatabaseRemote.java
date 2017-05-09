@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.iremote.IDatabase;
-import tier2.algo.AlgoPick;
+import tier2.algo.PickUpAlgo;
+import tier2.algo.SimplePickAlgo;
 import tier2.model.Good;
 import tier2.model.Pallet;
 import tier2.model.RequestedGood;
@@ -60,18 +61,7 @@ public class DatabaseRemote {
 		} 
 		return result > 0;
 	}
-
-	public static boolean removePallet(int palletId) {
-		IDatabase database = getDatabase();
-		int result = 0;
-		try {
-			result = database.update("delete from jysksim.pallet where id = ?;", palletId);
-		} catch (RemoteException | SQLException e) {
-			e.printStackTrace();
-		}
-		return result > 0;
-	}
-
+	
 	public static int getGoodId(String manufacturer, String name) {
 		IDatabase database = getDatabase();
 		try {
@@ -87,23 +77,30 @@ public class DatabaseRemote {
 		}
 		return -1;
 	}
-
-	public static Pallet[] getPalletsForGood(RequestedGood good) {
+	
+	public static List<Pallet> getPallets(RequestedGood good) {
 		IDatabase database = getDatabase();
 		try {
-
-			int id = getGoodId(good.getManufacturer(), good.getName());
-			good.setGoodid(id);
 			ArrayList<Object[]> res = database.query("SELECT id, count from jysksim.pallet where goodId = ?;", good.getGoodid());
 			List<Pallet> convertedPalsFromQ = new ArrayList<>();
 			for (Object[] objects : res) {
 				convertedPalsFromQ.add(new Pallet((int) objects[0], (int) objects[1], good));
 			}
-			convertedPalsFromQ = AlgoPick.getBestPallets(convertedPalsFromQ, good.getCount());
-			return convertedPalsFromQ.toArray(new Pallet[convertedPalsFromQ.size()]);
+			return convertedPalsFromQ;
 		} catch (RemoteException | SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static boolean removePallet(int palletId) {
+		IDatabase database = getDatabase();
+		int result = 0;
+		try {
+			result = database.update("delete from jysksim.pallet where id = ?;", palletId);
+		} catch (RemoteException | SQLException e) {
+			e.printStackTrace();
+		}
+		return result > 0;
 	}
 }

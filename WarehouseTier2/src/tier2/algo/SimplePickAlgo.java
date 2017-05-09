@@ -5,9 +5,9 @@ import java.util.List;
 
 import tier2.model.Pallet;
 
-public class AlgoPick {
+public class SimplePickAlgo implements PickUpAlgo {
 	
-	public static List<Pallet> getBestPallets(List<Pallet> allPallets, int count) {
+	public List<Pallet> getBestPallets(List<Pallet> allPallets, int count) {
 		List<Pallet> pallets = new ArrayList<>();
 		int temp = 0;
 		for (Pallet pallet : allPallets) {

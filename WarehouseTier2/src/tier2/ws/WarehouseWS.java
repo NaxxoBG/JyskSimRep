@@ -10,13 +10,11 @@ public class WarehouseWS {
 	private static CraneMonitor monitor = CraneMonitor.getInstance();
 	
 	public boolean insertPallet(Pallet pallet) {
-		return monitor.addToPallets(pallet);
-		
+		return monitor.addToPallets(pallet);	
 	}
 
-	public  static Pallet[] executeOrder(Good good, int count, int stationId) {
+	public static Pallet[] executeOrder(Good good, int count, int stationId) {
 		RequestedGood reqGood = new RequestedGood(good, count, stationId);
-		
 		monitor.addToRequestedGoods(reqGood);
 		
 		while(!reqGood.isFinished()){
@@ -27,7 +25,6 @@ public class WarehouseWS {
 				e.printStackTrace();
 			}
 		}
-		
 		Pallet[] p = monitor.getPallets(stationId);
 		
 		return p;
