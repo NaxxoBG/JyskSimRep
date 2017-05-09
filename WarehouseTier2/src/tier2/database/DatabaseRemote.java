@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shared.iremote.IDatabase;
-import tier2.algo.PickUpAlgo;
+import tier2.algo.IPickUpAlgo;
 import tier2.algo.SimplePickAlgo;
 import tier2.model.Good;
 import tier2.model.Pallet;

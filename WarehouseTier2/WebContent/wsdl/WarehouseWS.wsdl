@@ -11,7 +11,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="goodid" type="xsd:int"/>
      <element name="manufacturer" nillable="true" type="xsd:string"/>
      <element name="name" nillable="true" type="xsd:string"/>
-     <element name="palletId" type="xsd:int"/>
     </sequence>
    </complexType>
    <complexType name="Pallet">

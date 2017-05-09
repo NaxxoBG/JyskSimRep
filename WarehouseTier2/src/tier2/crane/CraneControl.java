@@ -6,45 +6,43 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
-import tier2.algo.PickUpAlgo;
+import tier2.algo.IPickUpAlgo;
 import tier2.algo.SimplePickAlgo;
 import tier2.database.DatabaseRemote;
 import tier2.model.Pallet;
 import tier2.model.RequestedGood;
 
-public class CraneMonitor {
-	private static CraneMonitor crane;
+public class CraneControl {
+	private static CraneControl crane;
 	private Queue<Pallet> pallets;
 	private Queue<RequestedGood> goods;
 	
-	private PickUpAlgo pickUpAlgo;
+	private IPickUpAlgo pickUpAlgo;
 
-	private CraneMonitor() {
+	private CraneControl() {
 		this.pallets = new ArrayDeque<>();
 		this.goods = new ArrayDeque<>();
 		pickUpAlgo = new SimplePickAlgo();
-		Thread thread = new Thread(new CraneThread(this));
+		Thread thread = new Thread(new Crane(this));
 		thread.start();
 	}
 
-	public synchronized static CraneMonitor getInstance() {
+	public synchronized static CraneControl getInstance() {
 		if (crane == null) {
-			crane = new CraneMonitor();
+			crane = new CraneControl();
 		} 
 		return crane;
 	}
 
 	public synchronized boolean addToPallets(Pallet pallet) {
-		pallet.setPickStattioId(-1);
+		pallet.setPickStationId(-1);
 		pallets.add(pallet);
-		System.out.println("New Pallet : " + pallet.toString() + "\n" + pallet.getGood().toString());
 		notifyAll();
 		return true;
 	}
 
 	public synchronized void addToRequestedGoods(RequestedGood reqGood) {
 		goods.add(reqGood);
-		System.out.println("New Request : " + reqGood.toString());
 		notifyAll();
 	}
 
@@ -81,7 +79,7 @@ public class CraneMonitor {
 				try {
 					Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 2000));
 					DatabaseRemote.removePallet(pallet.getId());
-					pallet.setPickStattioId(good.getStationId());
+					pallet.setPickStationId(good.getStationId());
 					pallets.add(pallet);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
@@ -96,6 +94,7 @@ public class CraneMonitor {
 		for (Pallet p : pallets) {
 			if (p.getPickStationId() == stationId){
 				pal.add(p);
+				pallets.remove(p);
 			}
 		}
 		return pal.toArray(new Pallet[pal.size()]);

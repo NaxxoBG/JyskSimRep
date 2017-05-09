@@ -47,11 +47,6 @@ public class Database implements IDatabase {
 	}
 
 	public ArrayList<Object[]> query(String sql, Object... args) throws SQLException {
-		System.out.println(sql);
-		for(Object o : args){
-			System.out.println(args.toString());
-		}
-		
 		openDatabase();
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -60,6 +55,9 @@ public class Database implements IDatabase {
 			for (int i = 0; i < args.length; i++) {
 				statement.setObject(i + 1, args[i]);
 			}
+			
+			System.out.println(statement.toString());
+			
 			resultSet = statement.executeQuery();
 			ArrayList<Object[]> list = new ArrayList<Object[]>();
 			while (resultSet.next()) {
@@ -74,7 +72,6 @@ public class Database implements IDatabase {
 			ex.printStackTrace();
 			return null;
 		} finally {
-			System.out.println("Query called");
 			if (resultSet != null)
 				resultSet.close();
 			if (statement != null)
@@ -84,10 +81,6 @@ public class Database implements IDatabase {
 	}
 
 	public int update(String sql, Object... args) throws SQLException {
-		System.out.println(sql);
-		for(Object o : args){
-			System.out.println(args.toString());
-		}
 		openDatabase();
 		int rowCount = 0;
 		PreparedStatement statement = null;
@@ -96,13 +89,15 @@ public class Database implements IDatabase {
 			for (int i = 0; i < args.length; i++) {
 				statement.setObject(i + 1, args[i]);
 			}
+			
+			System.out.println(statement.toString());
+			
 			rowCount = statement.executeUpdate();
 			return rowCount;
 		} catch (PSQLException ex) {
 			ex.printStackTrace();
 			return 0;
 		} finally {
-			System.out.println("Update called");
 			if (statement != null)
 				statement.close();
 			closeDatabase();

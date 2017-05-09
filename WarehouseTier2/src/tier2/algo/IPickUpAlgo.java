@@ -4,7 +4,7 @@ import java.util.List;
 
 import tier2.model.Pallet;
 
-public interface PickUpAlgo {
+public interface IPickUpAlgo {
 
 	public List<Pallet> getBestPallets(List<Pallet> allPallets, int count);
 	

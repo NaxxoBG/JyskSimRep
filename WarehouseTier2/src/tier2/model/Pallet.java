@@ -48,8 +48,8 @@ public class Pallet implements Serializable
 		return pickStationId;
 	}
 
-	public void setPickStattioId(int pickStattioId) {
-		this.pickStationId = pickStattioId;
+	public void setPickStationId(int pickStationId) {
+		this.pickStationId = pickStationId;
 	}
 
 	@Override
