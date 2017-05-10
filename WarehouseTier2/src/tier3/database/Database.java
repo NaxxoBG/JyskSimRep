@@ -1,8 +1,5 @@
 package tier3.database;
 
-import java.rmi.Naming;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

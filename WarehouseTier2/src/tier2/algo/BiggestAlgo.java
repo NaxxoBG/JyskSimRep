@@ -13,12 +13,13 @@ public class BiggestAlgo implements IPickAlgo {
 		allPallets.sort(Comparator.comparing(Pallet::getCount).reversed());
 		List<Pallet> result = new ArrayList<Pallet>();
 		int totalCount = 0;
-		for(Pallet p : allPallets){
+		for (Pallet p : allPallets) {
 			result.add(p);
 			totalCount += p.getCount();
-			if(totalCount > count) break;
+			if (totalCount > count) {
+				break;
+			}
 		}
 		return result;
 	}
-
 }

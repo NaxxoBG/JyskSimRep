@@ -8,8 +8,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import tier2.algo.BiggestAlgo;
 import tier2.algo.IPickAlgo;
-import tier2.algo.SimpleAlgo;
-import tier2.algo.SmallestAlgo;
 import tier2.database.DatabaseRemote;
 import tier2.model.Pallet;
 import tier2.model.RequestedGood;
@@ -62,7 +60,8 @@ public class CraneControl {
 				addToPallets(pallet);
 			}
 			try {
-				System.out.printf("|INSERTED: |%-15.15s|%-30.30s|%-6d|\n", pallet.getGood().getManufacturer(),pallet.getGood().getName(),pallet.getCount());
+				System.out.printf("|INSERTED: |%-15.15s|%-30.30s|%-6d|\n", pallet.getGood().getManufacturer(),
+						pallet.getGood().getName(), pallet.getCount());
 				Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 5000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -87,8 +86,9 @@ public class CraneControl {
 					DatabaseRemote.removePallet(pallet.getId());
 					pallet.setPickStationId(good.getStationId());
 					pallets.add(pallet);
-					
-					System.out.printf("|RETRIEVED:|%-15.15s|%-30.30s|%-6d|\n", pallet.getGood().getManufacturer(),pallet.getGood().getName(),pallet.getCount());
+
+					System.out.printf("|RETRIEVED:|%-15.15s|%-30.30s|%-6d|\n", pallet.getGood().getManufacturer(),
+							pallet.getGood().getName(), pallet.getCount());
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -114,7 +114,7 @@ public class CraneControl {
 
 	private boolean isPalletQueueEmpty() {
 		for (Pallet p : pallets) {
-			if (p.getPickStationId() == -1){
+			if (p.getPickStationId() == -1) {
 				return false;
 			}
 		}
