@@ -25,6 +25,7 @@ public class CraneControl {
 		pickUpAlgo = new SimplePickAlgo();
 		Thread thread = new Thread(new Crane(this));
 		thread.start();
+		System.out.printf("|OPERATION:|%-15.15s|%-30.30s|%-6s|\n", "Manufacturer", "Name", "Count");
 	}
 
 	public synchronized static CraneControl getInstance() {
@@ -59,6 +60,7 @@ public class CraneControl {
 				addToPallets(pallet);
 			}
 			try {
+				System.out.printf("|INSERTED: |%-15.15s|%-30.30s|%-6d|\n", pallet.getGood().getManufacturer(),pallet.getGood().getName(),pallet.getCount());
 				Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 5000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -83,6 +85,8 @@ public class CraneControl {
 					DatabaseRemote.removePallet(pallet.getId());
 					pallet.setPickStationId(good.getStationId());
 					pallets.add(pallet);
+					
+					System.out.printf("|RETRIEVED:|%-15.15s|%-30.30s|%-6d|\n", pallet.getGood().getManufacturer(),pallet.getGood().getName(),pallet.getCount());
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

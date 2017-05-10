@@ -10,12 +10,10 @@ public class WarehouseWS {
 	private static CraneControl monitor = CraneControl.getInstance();
 
 	public boolean insertPallet(Pallet pallet) {
-		System.out.println("Insert pallet: " + pallet);
 		return monitor.addToPallets(pallet);
 	}
 
-	public static Pallet[] executeOrder(Good good, int count, int stationId) {
-		System.out.println("Execute order: " + stationId + ", " + good.toString() + ", " + count);
+	public static Pallet[] retrievePallets(Good good, int count, int stationId) {
 		RequestedGood reqGood = new RequestedGood(good, count, stationId);
 		monitor.addToRequestedGoods(reqGood);
 

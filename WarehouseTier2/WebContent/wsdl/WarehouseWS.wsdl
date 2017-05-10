@@ -19,7 +19,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
      <element name="good" nillable="true" type="tns1:Good"/>
      <element name="id" type="xsd:int"/>
      <element name="pickStationId" type="xsd:int"/>
-     <element name="pickStattioId" type="xsd:int"/>
     </sequence>
    </complexType>
   </schema>
@@ -36,7 +35,7 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
   </schema>
  </wsdl:types>
 
-   <wsdl:message name="executeOrderRequest">
+   <wsdl:message name="retrievePalletsRequest">
 
       <wsdl:part name="good" type="tns1:Good">
 
@@ -52,17 +51,17 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    </wsdl:message>
 
-   <wsdl:message name="executeOrderResponse">
+   <wsdl:message name="insertPalletRequest">
 
-      <wsdl:part name="executeOrderReturn" type="impl:ArrayOf_tns1_Pallet">
+      <wsdl:part name="pallet" type="tns1:Pallet">
 
       </wsdl:part>
 
    </wsdl:message>
 
-   <wsdl:message name="insertPalletRequest">
+   <wsdl:message name="retrievePalletsResponse">
 
-      <wsdl:part name="pallet" type="tns1:Pallet">
+      <wsdl:part name="retrievePalletsReturn" type="impl:ArrayOf_tns1_Pallet">
 
       </wsdl:part>
 
@@ -78,6 +77,18 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
    <wsdl:portType name="WarehouseWS">
 
+      <wsdl:operation name="retrievePallets" parameterOrder="good count stationId">
+
+         <wsdl:input message="impl:retrievePalletsRequest" name="retrievePalletsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:retrievePalletsResponse" name="retrievePalletsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
       <wsdl:operation name="insertPallet" parameterOrder="pallet">
 
          <wsdl:input message="impl:insertPalletRequest" name="insertPalletRequest">
@@ -90,23 +101,29 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
 
       </wsdl:operation>
 
-      <wsdl:operation name="executeOrder" parameterOrder="good count stationId">
-
-         <wsdl:input message="impl:executeOrderRequest" name="executeOrderRequest">
-
-       </wsdl:input>
-
-         <wsdl:output message="impl:executeOrderResponse" name="executeOrderResponse">
-
-       </wsdl:output>
-
-      </wsdl:operation>
-
    </wsdl:portType>
 
    <wsdl:binding name="WarehouseWSSoapBinding" type="impl:WarehouseWS">
 
       <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="retrievePallets">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="retrievePalletsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="retrievePalletsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
 
       <wsdl:operation name="insertPallet">
 
@@ -119,24 +136,6 @@ Built on Apr 22, 2006 (06:55:48 PDT)-->
          </wsdl:input>
 
          <wsdl:output name="insertPalletResponse">
-
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
-
-         </wsdl:output>
-
-      </wsdl:operation>
-
-      <wsdl:operation name="executeOrder">
-
-         <wsdlsoap:operation soapAction=""/>
-
-         <wsdl:input name="executeOrderRequest">
-
-            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
-
-         </wsdl:input>
-
-         <wsdl:output name="executeOrderResponse">
 
             <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://ws.tier2" use="encoded"/>
 
