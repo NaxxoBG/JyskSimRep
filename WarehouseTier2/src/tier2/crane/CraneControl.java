@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
-import tier2.algo.IPickUpAlgo;
-import tier2.algo.SimplePickAlgo;
+import tier2.algo.BiggestAlgo;
+import tier2.algo.IPickAlgo;
+import tier2.algo.SimpleAlgo;
+import tier2.algo.SmallestAlgo;
 import tier2.database.DatabaseRemote;
 import tier2.model.Pallet;
 import tier2.model.RequestedGood;
@@ -17,12 +19,12 @@ public class CraneControl {
 	private Queue<Pallet> pallets;
 	private Queue<RequestedGood> goods;
 
-	private IPickUpAlgo pickUpAlgo;
+	private IPickAlgo pickUpAlgo;
 
 	private CraneControl() {
 		this.pallets = new ArrayDeque<>();
 		this.goods = new ArrayDeque<>();
-		pickUpAlgo = new SimplePickAlgo();
+		pickUpAlgo = new BiggestAlgo();
 		Thread thread = new Thread(new Crane(this));
 		thread.start();
 		System.out.printf("|OPERATION:|%-15.15s|%-30.30s|%-6s|\n", "Manufacturer", "Name", "Count");
