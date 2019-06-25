@@ -10,13 +10,13 @@
       <parameter name="className" value="tier2.ws.WarehouseWS"/>
       <parameter name="wsdlPortType" value="WarehouseWS"/>
       <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://ws.tier2" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="insertPallet" qname="operNS:insertPallet" returnQName="insertPalletReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:tns="http://model.tier2" qname="pallet" type="tns:Pallet"/>
+      </operation>
       <operation xmlns:operNS="http://ws.tier2" xmlns:rtns="http://ws.tier2" xmlns:tns2="http://model.tier2" name="retrievePallets" qname="operNS:retrievePallets" returnQName="retrievePalletsReturn" returnType="rtns:ArrayOf_tns1_Pallet" returnItemType="tns2:Pallet" soapAction="">
         <parameter xmlns:tns="http://model.tier2" qname="good" type="tns:Good"/>
         <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="count" type="tns:int"/>
         <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="stationId" type="tns:int"/>
-      </operation>
-      <operation xmlns:operNS="http://ws.tier2" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="insertPallet" qname="operNS:insertPallet" returnQName="insertPalletReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:tns="http://model.tier2" qname="pallet" type="tns:Pallet"/>
       </operation>
       <parameter name="allowedMethods" value="retrievePallets insertPallet"/>
 

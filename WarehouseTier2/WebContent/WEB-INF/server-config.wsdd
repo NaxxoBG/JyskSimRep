@@ -33,13 +33,13 @@
   <ns1:parameter name="className" value="org.apache.axis.Version"/>
  </ns1:service>
  <ns1:service name="WarehouseWS" provider="java:RPC">
-  <ns2:operation name="retrievePallets" qname="ns1:retrievePallets" returnQName="retrievePalletsReturn" returnType="ns1:ArrayOf_tns1_Pallet" soapAction="" xmlns:ns1="http://ws.tier2" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
-   <ns3:parameter name="good" type="ns2:Good" xmlns:ns2="http://model.tier2" xmlns:ns3="http://xml.apache.org/axis/wsdd/"/>
-   <ns2:parameter name="count" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
-   <ns2:parameter name="stationId" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <ns2:operation name="insertPallet" qname="ns1:insertPallet" returnQName="insertPalletReturn" returnType="xsd:boolean" soapAction="" xmlns:ns1="http://ws.tier2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
+   <ns3:parameter name="pallet" type="ns2:Pallet" xmlns:ns2="http://model.tier2" xmlns:ns3="http://xml.apache.org/axis/wsdd/"/>
   </ns2:operation>
-  <ns1:operation name="insertPallet" qname="ns3:insertPallet" returnQName="insertPalletReturn" returnType="xsd:boolean" soapAction="" xmlns:ns3="http://ws.tier2" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter name="pallet" type="ns4:Pallet" xmlns:ns4="http://model.tier2"/>
+  <ns1:operation name="retrievePallets" qname="ns3:retrievePallets" returnQName="retrievePalletsReturn" returnType="ns3:ArrayOf_tns1_Pallet" soapAction="" xmlns:ns3="http://ws.tier2">
+   <ns1:parameter name="good" type="ns4:Good" xmlns:ns4="http://model.tier2"/>
+   <ns1:parameter name="count" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <ns1:parameter name="stationId" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="retrievePallets insertPallet"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
